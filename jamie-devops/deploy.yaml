@@ -1,0 +1,38 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jamie-devops
+  labels:
+    app: jamie-devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jamie-devops
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: jamie-devops
+    spec:
+      containers:
+      - name: jamie-devops
+        image: gammondev.azurecr.io/jamie-devops:$BUILD_ID
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jamie-devops
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: jamie-devops										
