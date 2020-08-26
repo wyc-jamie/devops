@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: jamie-devops
-        image: gammondev.azurecr.io/jamie-devops:$BUILD_ID
+        image: gammondev.azurecr.io/jamie-gammon-devops:$BUILD_ID
         ports:
         - containerPort: 80
 ---
